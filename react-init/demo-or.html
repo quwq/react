@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello world</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/jsx">
+        $(document).ready(
+            function () {
+                var count = 0;
+                var style = {
+                    color: "red",
+                    border: "1px #000 solid",
+                };
+                var HelloWorld = React.createClass({
+                    getDefaultProps: function () {
+                        console.log("getDefaultProps,1");
+                        return {name: "Tom"};
+                    },
+                    getInitialState: function () {
+                        console.log("getInitialState,2");
+                        return {myCount: count++, ready: false};
+                    },
+                    componentWillMount: function () {
+                        console.log("componentWillMount,3");
+                        this.setState({ready: true});
+                    },
+                    render: function () {
+                        console.log("render,4");
+                        return <p ref="childp">Hello, {this.props.name ? this.props.name : "Wrold"}
+                            <br/>{this.state.myCount}<br/></p>;
+                    },
+                    componentDidMount: function () {
+                        console.log("componentDidMount,5");
+                        $(React.findDOMNode(this)).append("surprise!")
+                    },
+                });
+                React.render(<div style={style}><HelloWorld/><br/><HelloWorld></HelloWorld></div>, document.body);
+            }
+        );
+    </script>
+</head>
+<body>
+
+</body>
+</html>
