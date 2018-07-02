@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>典型父子组件的实现</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/jsx">
+        var GenderSelect = React.createClass({
+            render: function () {
+                return <select onChange={this.props.handleSelect}>
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+            }
+        })
+        var SignUpFrom = React.createClass({
+            getInitialState: function () {
+                return {
+                    name: '',
+                    password: '',
+                    gender: '',
+                }
+            },
+            handleChange: function (name, event) {
+                var newState = {}
+                newState[name] = event.target.value
+                this.setState(newState)
+            },
+            handleSelect: function (event) {
+                this.setState({gender: event.target.value})
+            },
+            render: function () {
+                return <form>
+                    <input type="text" placeholder="请输入用户名"
+                           onChange={this.handleChange.bind(this, 'name')}/>
+                    <input type="password" placeholder="请输入密码"
+                           onChange={this.handleChange.bind(this, 'password')}/>
+                    <GenderSelect handleSelect={this.handleSelect}></GenderSelect>
+                </form>
+            }
+        })
+        React.render(<SignUpFrom></SignUpFrom>, document.body);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

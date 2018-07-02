@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件不可控的实例</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/jsx">
+        // var MyForm = React.createClass({
+        //     render: function (){
+        //         return <input type="text" defaultValue="Hello World!"/>
+        //     }
+        // })
+        var MyForm = React.createClass({
+            submitHandler: function (event) {
+                event.preventDefault(); // 禁止浏览器默认行为
+                var helloTo = React.findDOMNode(this.refs.helloTo).value;
+                alert(helloTo)
+            },
+            render: function () {
+                return <form onSubmit={this.submitHandler}>
+                    <input type="text" ref="helloTo"
+                           defaultValue="Hello world"/>
+                    <br/>
+                    <button type="submit">speak</button>
+                </form>
+            }
+        })
+        React.render(<MyForm></MyForm>, document.body);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

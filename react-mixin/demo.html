@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件混入方式</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/jsx">
+        // var BindingExample = React.createClass({
+        //     getInitialState: function(){
+        //         return {
+        //             text: ''
+        //         }
+        //     },
+        //     handleChange: function(event){
+        //       this.setState({text:event.target.value})
+        //     },
+        //     render: function(){
+        //         return <div>
+        //             <input type="text" placeholder="请输入内容"
+        //             onChange={this.handleChange}/>
+        //             <p>{this.state.text}</p>
+        //         </div>
+        //     }
+        // })
+        var BindingMixin = {
+            handleChange: function (key) {
+                var that = this
+                return function (event) {
+                    var newState = {}
+                    newState[key] = event.target.value
+                    that.setState(newState)
+                }
+            }
+        }
+        var BindingExample = React.createClass({
+            mixins: [BindingMixin],
+            getInitialState: function () {
+                return {
+                    text: '',
+                    comment: ''
+                }
+            },
+            render: function () {
+                return <div>
+                    <input type="text" placeholder="请输入内容"
+                           onChange={this.handleChange('text')}/>
+                    <p>{this.state.text}</p>
+                    <input type="text" placeholder="请输入内容"
+                           onChange={this.handleChange('comment')}/>
+                    <p>{this.state.comment}</p>
+                </div>
+            }
+        })
+        React.render(<BindingExample></BindingExample>, document.body);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

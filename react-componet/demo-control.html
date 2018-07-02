@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件可控的实例</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/jsx">
+        var MyForm = React.createClass({
+            getInitialState: function () {
+                return {
+                    helloTo: 'hi world'
+                }
+            },
+            handleChange: function (event) {
+                this.setState({
+                    helloTo: event.target.value
+                })
+            },
+
+            submitHandler: function (event) {
+                event.preventDefault(); // 禁止浏览器默认行为
+                alert(this.state.helloTo)
+            },
+            render: function () {
+                return <form onSubmit={this.submitHandler}>
+                    <input type="text"
+                           value={this.state.helloTo}
+                           onChange={this.handleChange}/>
+                    <br/>
+                    <button type="submit">speak</button>
+                </form>
+            }
+        })
+        React.render(<MyForm></MyForm>, document.body);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
