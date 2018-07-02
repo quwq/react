@@ -34,7 +34,10 @@ react 学习笔记 react.js 0.13.2
    
 7 react-event
   事件   
-   
+8 react-component
+    react 组件 可控，不可控
+9 react-mixin 
+    mixins混入
           
 
 ``
